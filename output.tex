@@ -1,0 +1,60 @@
+Out of the box BetterTest supports exporting your test results as JSON or XML. You can also define your own classes to support different formats.
+
+The JSON and XML output files pretty much have the same layout. Because of that, the remainder of this section will use the JSON format in all examples and descriptions.
+
+\subsection{Directory Structure}
+\label{section:output:dir}
+
+By default, all output files are placed in a subfolder named \code{suiteName.dir} next to the executable. At the root of the output folder, a suite file named \code{suite.(json|xml)} is created. This file contains some general information about the test suite and a list of all tests, with some additional information per test.
+
+For each unit test, a folder with the test's name is created. Inside of this folder, each time the suite is run (and the test is not filtered out) a file named \code{unit\_\#\#\#\#\#\#\#\#.(json|xml)} is generated. This file contains all test results. The index is padded to 8 digits to allow easy lexicographical sorting of filenames.
+
+As an example, running the program from Listing~\ref{lst:output:dir1} several times should result in the output files as shown in Listing~\ref{lst:output:dir2}:
+
+\lstinputlisting[caption={Example program.}, label={lst:output:dir1}]{snippets/dir_structure.cpp}
+
+\lstinputlisting[caption={Expected output.}, label={lst:output:dir2}]{snippets/dir_structure.txt}
+
+\subsection{Suite File}
+\label{section:output:suite}
+
+Listing~\ref{lst:output:suite} shows the JSON specification of the suite file.
+
+First, there is some information describing the test \code{suite}:
+
+\begin{itemize}
+\item \code{dateCreated}: Date and time at which this suite was first run.
+\item \code{dateLastRun}: Date and time at which any tests in this suite were last run.
+\item \code{name}: Name of the suite.
+\item \code{passing}: Set to true only if all tests are passing.
+\item \code{runIndex}: Index of the last run.
+\item \code{version}: BetterTest version with which this file was last written.
+\end{itemize}
+
+Then, there is a list of all \code{unitTests} that were ever run:
+
+\begin{itemize}
+\item \code{dateCreated}: Date and time at which this unit test was first run.
+\item \code{dateLastRun}: Date and time at which this unit test was last run.
+\item \code{name}: Name of the unit test.
+\item \code{passing}: Set to true only if there were no failures in the last run.
+\end{itemize}
+
+\lstinputlisting[caption={Suite file output.}, label={lst:output:suite}]{snippets/suite.json}
+
+\subsection{Unit Test File}
+\label{section:output:unit}
+
+In each unit test file, the results for a test's single run can be found. The exact structure depends on the mixins (see Section~\ref{section:mixins}) the unit test used. Consult the appropriate subsection for each mixins output. Listing~\ref{lst:output:unit} shows the top-level JSON specification of a unit test that used the Compare Mixin and Exception Mixin.
+
+\lstinputlisting[caption={Example unit test file output.}, label={lst:output:unit}]{snippets/unit.json}
+
+\subsection{Custom Output}
+\label{section:output:custom}
+
+% TODO: Explain how to write a custom exporter and importer.
+
+\subsubsection{Registration}
+\label{section:output:custom:register}
+
+\lstinputlisting[caption={.}, label={lst:output:register}]{snippets/register.cpp}

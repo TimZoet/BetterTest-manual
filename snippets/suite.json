@@ -1,0 +1,20 @@
+{
+    "suite":
+    {
+        "dateCreated": string,
+        "dateLastRun": string,
+        "name":        string,
+        "passing":     bool,
+        "runIndex":    int,
+        "version":     string,
+    }
+    "unitTests":
+    [
+        {
+            "dateCreated": string,
+            "dateLastRun": string,
+            "name":        string,
+            "passing":     bool
+        }
+    ]
+}

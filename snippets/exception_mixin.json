@@ -1,0 +1,21 @@
+"exception":
+{
+    "results":
+    [
+        {
+            "location":
+            {
+                "column": int,
+                "file":   path,
+                "line":   int
+            },
+            "status": "success" | "failure"
+        }
+    ],
+    "stats":
+    {
+        "total":     int,
+        "failure":   int,
+        "success":   int,
+    }
+}

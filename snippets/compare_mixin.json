@@ -1,0 +1,23 @@
+"compare":
+{
+    "results":
+    [
+        {
+            "location":
+            {
+                "column": int,
+                "file":   path,
+                "line":   int
+            },
+            "status": "success" | "failure",
+            "error":  string
+        }
+    ],
+    "stats":
+    {
+        "total":     int,
+        "failure":   int,
+        "success":   int,
+        "exception": int,
+    }
+}
