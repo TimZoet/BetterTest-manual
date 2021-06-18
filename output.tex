@@ -52,9 +52,13 @@ In each unit test file, the results for a test's single run can be found. The ex
 \subsection{Custom Output}
 \label{section:output:custom}
 
-% TODO: Explain how to write a custom exporter and importer.
+Custom export and import classes must derive from the \code{BaseExporter} and \code{BaseImporter} interfaces. They must be registered before running your tests.
+
+In addition to implementing the interfaces, the classes must also have a static member variable \code{name}. This is the string which users can pass to the \code{-o --output} command line argument to select the output format. For reference, the definition of this variable in the JSON classes looks as follows: \code{static constexpr char name[] = "json";}. The name must be unique. If it is already in use, an exception is thrown on registration.
 
 \subsubsection{Registration}
 \label{section:output:custom:register}
+
+Registration of custom exporters and importers is straightforward. You only need to call the \code{bt::registerExporter} and \code{bt::registerImporter} functions with your classes as template parameters before calling \code{bt::run}.
 
 \lstinputlisting[caption={.}, label={lst:output:register}]{snippets/register.cpp}
