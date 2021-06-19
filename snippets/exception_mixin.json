@@ -10,7 +10,7 @@
                 "line":   int
             },
             "status": "success" | "failure",
-			"error":  string
+            "error":  string
         }
     ],
     "stats":
