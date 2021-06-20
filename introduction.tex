@@ -1,8 +1,28 @@
-% Philosophy:
-% C++20.
-% Classes.
-% No macros.
-% No silly expectEQ or requireEQ. compareEQ, followed by a potential info, warning or fatal message.
-% Extensible.
-% Multithreaded by default.
-% Well-defined output.
+\code{BetterTest} is a modern, macro free, extensible testing framework.
+
+Instead of having free functions wrapped in macros, a unit test is defined using a class. When invoked, this class can (should) perform all sorts of checks. These checks too are not implemented using macros, but grouped in various \marginlabel{See Section~\ref{section:mixins}.}mixin classes from which your unit test classes can inherit. Not using macros has one downside: as long as C++ does not have compile time reflection, it is necessary to manually register them. A small price to pay...
+
+There are other testing frameworks that have some odd quirks, which are mostly resolved in \code{BetterTest}:
+
+Sometimes a failed check should immediately terminate a test, for instance because something unexpectedly returned a null pointer. Instead of having two different methods to differentiate between terminating and non-terminating failures, there is always just one. For example, there are no \code{expectEQ} and \code{requireEQ}, but only a \code{compareEQ}. The return value of these methods can be used to terminate or print a warning message.
+
+Also, if e.g. two values that are being compared cannot be converted to a string, this will never prevent compilation. \code{BetterTest} will do its best to look for a conversion, but if no such conversion exists it will write a placeholder to the result files.
+
+Finally, tests can be run in parallel out of the box. No need to write silly scripts that simulate this by running the same executable multiple times with different parameters.
+
+By default, \code{BetterTest} can export test results as JSON or XML. The format of the generated files is \marginlabel{See Section~\ref{section:output}.}specified very precisely, so integrating \code{BetterTest} into some automated build pipeline is perfectly possible.
+
+(Almost) all aspects of \code{BetterTest} are extensible. New checks can be defined by implementing new \marginlabel{See Section~\ref{section:mixins:custom}.}mixin classes. \marginlabel{See Section~\ref{section:output:custom}.}Custom output formats can be created using custom importers and exporters.
+
+For build instructions, see Section~\ref{section:build}. For an introductory guide, see Section~\ref{section:guide}.
+
+\subsection{Acknowledgements}
+\label{section:introduction:acknowledgements}
+
+\code{BetterTest} currently relies on the following libraries:
+
+\begin{itemize}
+	\item nlohmann/json\cite{nlohmann}.
+	\item pugixml\cite{pugixml}.
+	\item hhdate\cite{hhdate}.
+\end{itemize}
