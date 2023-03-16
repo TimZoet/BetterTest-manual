@@ -35,3 +35,19 @@ With that done, add the class to :code:`bt::run`:
         bt::run<UnitTest01>(argc, argv, "myFirstTestSuite");
         return 0;
     }
+
+Multithreading
+--------------
+
+By default, it is assumed that each unit test can be run in parallel. Should that not be the case, for example because
+multiple tests need exclusive access to the same resource, you can add a static member :code:`isParallel` to the class
+definition. When the test suite is run in multithreaded mode, the tests that do not support this will run serially.
+
+.. code-block:: cpp
+
+    class UnitTest01 : public bt::UnitTest<UnitTest01, 
+                                           bt::CompareMixin>
+    {
+    public:
+        static constexpr bool isParallel = false;
+    };
